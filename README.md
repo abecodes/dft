@@ -1,3 +1,5 @@
+[![Go Report Card](https://goreportcard.com/badge/github.com/abecodes/dft)](https://goreportcard.com/report/github.com/abecodes/dft)
+
 # 🥼 DFT
 
 **D**ocker **F**or **T**esting is a zero dependency wrapper around the `docker` command. It is solely based on the std lib.
