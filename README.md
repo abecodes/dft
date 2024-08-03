@@ -1,4 +1,5 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/abecodes/dft)](https://goreportcard.com/report/github.com/abecodes/dft)
+[![Go Reference](https://pkg.go.dev/badge/github.com/abecodes/dft.svg)](https://pkg.go.dev/github.com/abecodes/dft)
 
 # 🥼 DFT
 
