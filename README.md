@@ -123,7 +123,7 @@ func TestUserService(tt *testing.T) {
 
 ## 🤖 API
 
-(Documentation)[https://pkg.go.dev/github.com/abecodes/dft]
+[Documentation](https://pkg.go.dev/github.com/abecodes/dft)
 
 ### StartContainer options
 
