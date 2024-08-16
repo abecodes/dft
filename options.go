@@ -46,7 +46,7 @@ func WithEnvVar(key string, value string) ContainerOption {
 
 		n := append(
 			*cfg.env,
-			strings.ToUpper(key)+"="+strings.ToUpper(value),
+			strings.ToUpper(key)+"="+value,
 		)
 
 		cfg.env = &n
