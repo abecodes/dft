@@ -3,9 +3,10 @@ package dft
 import "strings"
 
 type containerCfg struct {
-	args  *[]string
-	env   *[]string
-	ports *[][2]uint
+	args   *[]string
+	env    *[]string
+	mounts *[][2]string
+	ports  *[][2]uint
 }
 
 type waitCfg struct {
@@ -50,6 +51,20 @@ func WithEnvVar(key string, value string) ContainerOption {
 		)
 
 		cfg.env = &n
+	}
+}
+
+// WithExecuteInsideContainer defines if the wait cmd is executed inside the container
+// or on the host machine
+func WithMount(dest string, trgt string) ContainerOption {
+	return func(cfg *containerCfg) {
+		if cfg.mounts == nil {
+			cfg.mounts = &[][2]string{{dest, trgt}}
+
+			return
+		}
+
+		*cfg.mounts = append(*cfg.mounts, [2]string{dest, trgt})
 	}
 }
 

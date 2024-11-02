@@ -19,11 +19,52 @@ type Container struct {
 func newContainer(
 	ctx context.Context,
 	imageName string,
-	exposedPorts [][2]uint,
-	envVars []string,
-	args []string,
+	opts ...ContainerOption,
 ) (*Container, error) {
-	id, err := startContainer(ctx, imageName, exposedPorts, envVars, args)
+	cfg := containerCfg{
+		args:   nil,
+		env:    nil,
+		mounts: nil,
+		ports:  nil,
+	}
+
+	// INFO: we could pass the options further down and parse them in functions
+	// we are calling, but we need the exposed ports here to check if we are up
+	for i := range opts {
+		opts[i](&cfg)
+	}
+
+	var (
+		arguments    []string
+		envVars      []string
+		exposedPorts [][2]uint
+		mounts       [][2]string
+	)
+
+	if cfg.args != nil {
+		arguments = *cfg.args
+	}
+
+	if cfg.env != nil {
+		envVars = *cfg.env
+	}
+
+	if cfg.mounts != nil {
+		mounts = *cfg.mounts
+	}
+
+	if cfg.ports != nil {
+		exposedPorts = *cfg.ports
+	}
+
+	id, err := startContainer(
+		ctx,
+		imageName,
+		arguments,
+		envVars,
+		exposedPorts,
+		mounts,
+	)
 	if err != nil {
 		return nil, fmt.Errorf(
 			"[%s](%s) %w",
@@ -43,7 +84,10 @@ func newContainer(
 		if err != nil {
 			ctr := Container{id: id}
 
-			sCtx, sCtxCancel := context.WithTimeout(context.Background(), 5*time.Second)
+			sCtx, sCtxCancel := context.WithTimeout(
+				context.Background(),
+				5*time.Second,
+			)
 			_ = ctr.Stop(sCtx)
 			sCtxCancel()
 		}

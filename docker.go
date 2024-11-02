@@ -34,9 +34,10 @@ const (
 func startContainer(
 	ctx context.Context,
 	imageName string,
-	exposedPorts [][2]uint,
-	envVars []string,
 	arguments []string,
+	envVars []string,
+	exposedPorts [][2]uint,
+	mounts [][2]string,
 ) (string, error) {
 	var (
 		stdOutCapture bytes.Buffer
@@ -68,6 +69,19 @@ func startContainer(
 	// passing envVars
 	for i := range envVars {
 		args = append(args, "-e", envVars[i])
+	}
+
+	// passing envVars
+	for i := range mounts {
+		args = append(
+			args,
+			"--mount",
+			fmt.Sprintf(
+				"type=bind,source=%s,target=%s",
+				mounts[i][0],
+				mounts[i][1],
+			),
+		)
 	}
 
 	args = append(args, imageName)

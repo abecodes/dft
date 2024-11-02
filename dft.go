@@ -19,38 +19,9 @@ func StartContainer(
 		return nil, err
 	}
 
-	cfg := containerCfg{
-		env:   nil,
-		ports: nil,
-	}
-
-	for i := range opts {
-		opts[i](&cfg)
-	}
-
-	var (
-		args         []string
-		envVars      []string
-		exposedPorts [][2]uint
-	)
-
-	if cfg.args != nil {
-		args = *cfg.args
-	}
-
-	if cfg.env != nil {
-		envVars = *cfg.env
-	}
-
-	if cfg.ports != nil {
-		exposedPorts = *cfg.ports
-	}
-
 	return newContainer(
 		ctx,
 		imageName,
-		exposedPorts,
-		envVars,
-		args,
+		opts...,
 	)
 }

@@ -1,4 +1,4 @@
-[![Go Report Card](https://goreportcard.com/badge/github.com/abecodes/dft)](https://goreportcard.com/report/github.com/abecodes/dft)
+[![Go Report Card](https://goreportcard.com/badge/github.com/abecodes/dft)](https://goreportcard.com/report/github.com/abecodes/dft)  
 [![Go Reference](https://pkg.go.dev/badge/github.com/abecodes/dft.svg)](https://pkg.go.dev/github.com/abecodes/dft)
 
 # 🥼 DFT
@@ -134,6 +134,7 @@ func TestUserService(tt *testing.T) {
 | --- | --- | --- |
 | WithCmd | Overwrite [CMD]. | `WithCmd([]string{"--tlsCAFile", "/run/tls/ca.crt"})` |
 | WithEnvVar | Set an envvar inside the container.<br>Can be called multiple times.<br>If two options use the same key the latest one will overwrite existing ones. | `WithEnvVar("intent", "prod")` |
+| WithMount | Mount a local dir or file<br>Can be called multiple times. | `WithMount("./host/folder", "/target")` |
 | WithPort | Expose an internal port on a specific host port. | `WithPort(27017,8080)` |
 | WithRandomPort | Expose an internal port on a random host port.<br>Use `ExposedPorts` or `ExposedPortAddresses` to get the correct host port. | `WithRandomPort(27017)` |
 

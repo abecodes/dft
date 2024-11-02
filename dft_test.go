@@ -48,7 +48,10 @@ func TestDFT(tt *testing.T) {
 				},
 				),
 			)
-			if !strings.Contains(err.Error(), "container in invalid state: 'exited'") {
+			if !strings.Contains(
+				err.Error(),
+				"container in invalid state: 'exited'",
+			) {
 				t.Errorf("[dft.StartContainer] unexpected error: %v", err)
 				tt.FailNow()
 
@@ -66,6 +69,7 @@ func TestDFT(tt *testing.T) {
 			ctr, err = dft.StartContainer(
 				ctx,
 				"mongo:7-jammy",
+				dft.WithMount("./testfile", "/etc/testfile"),
 				dft.WithRandomPort(27017),
 				dft.WithPort(27017, 27017),
 			)
