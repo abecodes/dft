@@ -85,9 +85,9 @@ func TestUserService(tt *testing.T) {
 	// since we use a random port in the example we want to know its
 	// address on the host. Because we can expose an internal port on multiple host ports,
 	// this method will return a list of addresses
-	addrs, ok := ctr.ExposedPortAddr(27017)
+	addrs, ok := ctr.ExposedPortAddresses(27017)
 	if !ok {
-		tt.Error("[ctr.ExposedPortAddr] did not return any addresses")
+		tt.Error("[ctr.ExposedPortAddresses] did not return any addresses")
 		tt.FailNow()
 
 		return
@@ -113,12 +113,12 @@ func TestUserService(tt *testing.T) {
 			users := userRepo.GetAll()
 			if len(users) != 1 &&
 				users[0].FirstName != "awesome" &&
-				users[0].LastName != "user" (
+				users[0].LastName != "user" {
 					t.Error("[userSvc.New] unable to create user")
 					tt.FailNow()
 
 					return
-				)
+				}
 		},
 	)
 }
